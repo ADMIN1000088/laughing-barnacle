@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>快捷登录</title>
+    <title>登录与注册</title>
     <style>
-        .all {
+        /* 整体容器样式 */
+      .all {
             width: 400px;
             box-shadow: -5px 5px 15px rgba(210, 210, 210, 0.9);
             margin: 100px auto;
@@ -15,12 +17,15 @@
             background-color: #ffffff;
             height: 350px;
         }
-        .log {
+
+        /* 登录、注册部分通用的左右布局样式 */
+      .log {
             width: 50%;
             padding: 20px;
             box-sizing: border-box;
         }
-        .reg {
+
+      .reg {
             width: 50%;
             height: 100%;
             background-color: #20b2aa;
@@ -29,18 +34,22 @@
             padding: 20px;
             box-sizing: border-box;
         }
-        .reg_1 {
+
+      .reg_1 {
             text-align: center;
         }
-        .reg_1 h2 {
+
+      .reg_1 h2 {
             font-weight: 700;
             margin-bottom: 10px;
         }
-        .reg_1 p {
+
+      .reg_1 p {
             margin-bottom: 20px;
             font-size: 0.9em;
         }
-        .sig {
+
+      .sig {
             width: 70px;
             height: 30px;
             border-radius: 10px;
@@ -49,10 +58,12 @@
             color: #ffffff;
             cursor: pointer;
         }
-        .reg_1 a {
+
+      .reg_1 a {
             color: #ffffff;
             text-decoration: none;
         }
+
         h3 {
             font-size: 2em;
             color: black;
@@ -60,9 +71,11 @@
             text-align: center;
             font-family: "Arial", sans-serif;
         }
-        .input {
+
+      .input {
             margin-bottom: 15px;
         }
+
         span {
             color: #999;
             font-size: 0.75em;
@@ -70,7 +83,8 @@
             text-transform: uppercase;
             margin-bottom: 5px;
         }
-        .input-text {
+
+      .input-text {
             border: 1px solid #555;
             outline-color: #fd9f3e;
             width: 100%;
@@ -78,10 +92,12 @@
             padding: 0.5em;
             box-sizing: border-box;
         }
-        .text-center {
+
+      .text-center {
             text-align: center;
         }
-        .tijiao {
+
+      .tijiao {
             color: rgb(255, 253, 253);
             width: 80px;
             height: 35px;
@@ -89,52 +105,213 @@
             border: none;
             cursor: pointer;
         }
+
+      .ll {
+            border: 1px solid #555;
+            outline-color: #fd9f3e;
+            width: 100%;
+            font-size: 1em;
+            padding: 0.5em;
+            box-sizing: border-box;
+        }
+
+      .zhuce {
+            border: none;
+            font-size: 10px;
+            color: rgb(255, 253, 253);
+            width: 80px;
+            height: 35px;
+            background-color: rgb(241, 52, 10);
+            cursor: pointer;
+        }
+
+        /* 新增的倒计时提示框样式 */
+      .countdown-tip {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            display: none;
+            font-size: 16px;
+            justify-content: center;
+            align-items: center;
+        }
+
+      .countdown-tip span {
+            font-size: 32px;
+            margin: 0 10px;
+        }
     </style>
 </head>
+
 <body>
-    <div class="all">
-        <div class="log">
-            <div class="register">
-                <form>
-                    <h3>用户登录</h3>
-                    <div class="input">
-                        <span>用户名 <label style="color: red">* </label></span>
-                        <input
-                            type="text"
-                            v-model="name"
-                            placeholder="请输入用户名"
-                            class="input-text"
-                        />
-                    </div>
-                    <div class="input">
-                        <span>密码 <label style="color: red">*</label></span>
-                        <input
-                            type="password"
-                            v-model="password"
-                            placeholder="请输入密码"
-                            class="input-text"
-                        />
-                    </div>
-                    <div class="text-center">
-                        <input
-                            type="submit"
-                            value="提交"
-                            class="tijiao"
-                            @click="denglu"
-                        />
-                    </div>
-                </form>
+    <!-- 登录页面部分，初始显示 -->
+    <div id="loginPage" style="display: block;">
+        <div class="all">
+            <div class="log">
+                <div class="register">
+                    <form>
+                        <h3>用户登录</h3>
+                        <div class="input">
+                            <span>用户名 <label style="color: red">* </label></span>
+                            <input
+                                type="text"
+                                v-model="name"
+                                placeholder="请输入用户名"
+                                class="input-text"
+                            />
+                        </div>
+                        <div class="input">
+                            <span>密码 <label style="color: red">*</label></span>
+                            <input
+                                type="password"
+                                v-model="password"
+                                placeholder="请输入密码"
+                                class="input-text"
+                            />
+                        </div>
+                        <div class="text-center">
+                            <input
+                                type="submit"
+                                value="提交"
+                                class="tijiao"
+                                @click="denglu"
+                            />
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="reg">
-            <div class="reg_1">
-                <h2>没有账号？</h2>
-                <p>立即注册加入我们吧，和我们一起开启旅程吧</p>
-                <a href="简洁注册.html">
-                    <button type="button" class="sig">注册</button>
-                </a>
+            <div class="reg">
+                <div class="reg_1">
+                    <h2>没有账号？</h2>
+                    <p>立即注册加入我们吧，和我们一起开启旅程吧</p>
+                    <a href="#registerPage">
+                        <button type="button" class="sig">注册</button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-</body>
-</html>
+
+    <!-- 注册页面部分，初始隐藏 -->
+    <div id="registerPage" style="display: none;">
+        <div class="all">
+            <div class="reg">
+                <div class="reg_1">
+                    <h2>已有账号？</h2>
+                    <p>请使用你的账号进行登录！</p>
+                    <a href="#loginPage">
+                        <button type="button" class="sig">登录</button>
+                    </a>
+                </div>
+            </div>
+            <div class="log">
+                <div>
+                    <div class="register" id="tiao">
+                        <form>
+                            <h3>注册新用户</h3>
+                            <div class="input">
+                                <input
+                                    class="ll"
+                                    type="text"
+                                    placeholder="请输入用户名"
+                                    v-model="name"
+                                />
+                            </div>
+                            <div class="input">
+                                <input
+                                    class="ll"
+                                    type="password"
+                                    placeholder="请输入密码"
+                                    v-model="password"
+                                />
+                            </div>
+                            <div class="text-center">
+                                <input
+                                    type="submit"
+                                    value="注册"
+                                    class="zhuce"
+                                />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟存储用户信息的对象（真实应用中可能用后端数据库等存储）
+        const users = {};
+        // 记录登录错误次数
+        let loginErrorCount = 0;
+        // 定时器变量
+        let countdownTimer;
+
+        // 获取注册按钮和登录按钮元素
+        const registerButton = document.querySelector('#loginPage button.sig');
+        const backToLoginButton = document.querySelector('#registerPage button.sig');
+        const loginSubmitButton = document.querySelector('#loginPage input[type="submit"]');
+        const registerSubmitButton = document.querySelector('#registerPage input[type="submit"]');
+
+        // 获取新增的倒计时提示框元素
+        const countdownTip = document.createElement('div');
+        countdownTip.className = 'countdown-tip';
+        document.body.appendChild(countdownTip);
+
+        // 给注册按钮添加点击事件监听器
+        registerButton.addEventListener('click', function () {
+            // 隐藏登录页面
+            document.getElementById('loginPage').style.display = 'none';
+            // 显示注册页面
+            document.getElementById('registerPage').style.display = 'block';
+        });
+
+        // 给返回登录按钮添加点击事件监听器
+        backToLoginButton.addEventListener('click', function () {
+            // 隐藏注册页面
+            document.getElementById('registerPage').style.display = 'none';
+            // 显示登录页面
+            document.getElementById('loginPage').style.display = 'block';
+        });
+
+        // 给注册提交按钮添加点击事件监听器
+        registerSubmitButton.addEventListener('click', function (e) {
+            e.preventDefault(); // 阻止表单默认提交行为
+            const registerUsername = document.querySelector('#registerPage input[type="text"]').value;
+            const registerPassword = document.querySelector('#registerPage input[type="password"]').value;
+            // 简单模拟存储用户信息（实际中可发送给后端存储）
+            users[registerUsername] = registerPassword;
+            alert('注册成功');
+            // 注册成功后切换回登录页面
+            document.getElementById('registerPage').style.display = 'none';
+            document.getElementById('loginPage').style.display = 'block';
+        });
+
+        // 给登录提交按钮添加点击事件监听器
+        loginSubmitButton.addEventListener('click', function (e) {
+            e.preventDefault(); // 阻止表单默认提交行为
+            const loginUsername = document.querySelector('#loginPage input[type="text"]').value;
+            const loginPassword = document.querySelector('#loginPage input[type="password"]').value;
+            // 简单验证用户名和密码是否匹配（真实应用要和后端核对等更严谨方式）
+            if (users[loginUsername] === loginPassword) {
+                window.location.href = '用户.html';
+            } else {
+                loginErrorCount++;
+                if (loginErrorCount >= 5) {
+                    // 达到错误次数限制，显示倒计时提示框并开始倒计时
+                    showCountdownTip();
+                } else {
+                    alert('账号或密码错误，请重新尝试！！！');
+                }
+            }
+        });
+
+        function showCountdownTip() {
+            let timeLeft = 60;
+            countdownTip.style.display = 'flex';
+            countdownTip.innerHTML = `<span>请等待</span
