@@ -177,7 +177,7 @@
                         <div class="text-center">
                             <input
                                 type="submit"
-                                value="登录"
+                                value="提交"
                                 class="tijiao"
                                 @click="denglu"
                             />
@@ -299,7 +299,7 @@
             const loginPassword = document.querySelector('#loginPage input[type="password"]').value;
             // 简单验证用户名和密码是否匹配（真实应用要和后端核对等更严谨方式）
             if (users[loginUsername] === loginPassword) {
-                window.location.href = '不知道.html';
+                window.location.href = '用户.html';
             } else {
                 loginErrorCount++;
                 if (loginErrorCount >= 5) {
